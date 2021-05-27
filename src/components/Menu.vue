@@ -1,94 +1,42 @@
 <template>
-  <nav class="navbar navbar-expand-md navbar-light bg-light">
+<div>
+  <div class="hatter"></div>
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <div class="container-fluid">
-      <router-link
-        class="navbar-brand"
-        to="/"
-      >Home</router-link>
+      <a class="navbar-brand" href="#">Navbar</a>
       <button
         class="navbar-toggler"
         type="button"
         data-bs-toggle="collapse"
-        data-bs-target="#navbarNavDropdown"
-        aria-controls="navbarNavDropdown"
+        data-bs-target="#navbarSupportedContent"
+        aria-controls="navbarSupportedContent"
         aria-expanded="false"
         aria-label="Toggle navigation"
       >
         <span class="navbar-toggler-icon"></span>
       </button>
-      <div
-        class="collapse navbar-collapse"
-        id="navbarNavDropdown"
-      >
-        <ul class="navbar-nav">
-
-          <!-- Alapadatok -->
-          <li class="nav-item dropdown">
-            <a
-              class="nav-link dropdown-toggle"
-              href="#"
-              id="navbarDropdownMenuLink"
-              role="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <router-link class="nav-link active" aria-current="page" to="/"
+              >Home</router-link
             >
-              Alapadatok
-            </a>
-            <ul
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdownMenuLink"
+          </li>
+          <li class="nav-item" v-if="loginAccessLevel == 0">
+            <router-link class="nav-link active" aria-current="page" to="/login/"
+              >Login</router-link
             >
-              <li><router-link
-                   :class="{'dropdown-item': true, disabled: userName==null}"
-                  to="/alapadatok/autok/"
-                >Autók</router-link></li>
-              <li><router-link
-                   :class="{'dropdown-item': true, disabled: userName==null}"
-                  to="/alapadatok/berlok/"
-                >Bérlők</router-link></li>
-            </ul>
           </li>
-
-          <!-- Kölcsönzés -->
+          
           <li class="nav-item">
-            <router-link
-              class="nav-link active"
-              aria-current="page"
-              to="/kolcsonzes/"
-            >Kölcsönzés</router-link>
-          </li>
-
-					<!-- Kimutatások -->
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              to="/kimutatasok/"
-            >Kimutatások</router-link>
-          </li>
-
-					<!-- Kapcsolat -->
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              to="/kapcsolat/"
-            >Kapcsolat</router-link>
-          </li>
-
-            <!-- login -->
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              to="/login/"
-              v-if="userName=='' || userName==null"
-            >Login</router-link>
-          </li>
-
-
-         <!-- logout drop down -->
-          <li
-            class="nav-item dropdown"
-            v-if="userName!=''"
-          >
+                <router-link class="nav-link active" to="/macskak/"
+                  >Macskak</router-link
+                >
+              </li>
+          <!-- <li class="nav-item">
+            <a class="nav-link" href="#">Link</a>
+          </li> -->
+          <li class="nav-item dropdown" v-if="loginAccessLevel == 2">
             <a
               class="nav-link dropdown-toggle"
               href="#"
@@ -96,68 +44,96 @@
               role="button"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              v-if="userName!=''"
             >
-              {{userName}}
+              Adatkezelesek
             </a>
-            <ul
-              v-if="userName!=''"
-              class="dropdown-menu"
-              aria-labelledby="navbarDropdown"
-            >
-              <li><a
-                  class="dropdown-item"
-                  href="#"
-                  @click.prevent="logout()"
-                >Logout</a></li>
+            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+              <!-- <li>
+                <router-link class="dropdown-item" to="/macskak/"
+                  >macskak</router-link
+                >
+              </li> -->
+              <li>
+                <router-link class="dropdown-item" to="/MacskaFeltoltes/"
+                  >Macska adatkezelese</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/Fajtakhozzaadas/"
+                  >Fajta adatkezelese</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/Oltasokhozzaadas/"
+                  >Oltasok adatkezelese</router-link
+                >
+              </li>
+              <li>
+                <router-link class="dropdown-item" to="/Macskaoltasaihozzaadas/"
+                  >Macskaoltasai adatkezelese</router-link
+                >
+              </li>
             </ul>
-          </li>   
-
-
-
-		<!-- ModalValidate -->
-          <li class="nav-item">
-            <router-link
-              class="nav-link"
-              to="/modalValidate/"
-            >Modális űrlap</router-link>
           </li>
+          <li class="nav-item" v-if="loginAccessLevel > 0">
+           <button class="btn nav-link " @click="Logout()">Kijelentkezés</button>
+          </li>
+          <!-- <li class="nav-item">
+            <a
+              class="nav-link disabled"
+              href="#"
+              tabindex="-1"
+              aria-disabled="true"
+              >Disabled</a
+            >
+          </li> -->
         </ul>
+        
       </div>
     </div>
   </nav>
-
+  </div>
 </template>
 
 <script>
+
 const axios = require("axios").default;
 axios.defaults.withCredentials = true;
+
 export default {
-    name: "Menu",
-    props: ["userName"],
-    methods: {
-    logout() {
-      let params = {
+  name: "Menu",
+  computed: {
+    loginAccessLevel() {
+      return this.$root.$data.loginAccessLevel;
+    },
+  },
+  methods: {
+    Logout() {
+       let params = {
         query: "logoutUser",
       };
       axios
         .post(this.url, params)
         .then((res) => {
           console.log(res.data);
-          //redirect login
-          if (this.$route.name != "login") {
-            this.$router.push({ name: "login" });
-          }
-          this.$emit("changeUser");
+          this.$root.$data.loginAccessLevel = res.data.loginAccessLevel;
+          this.$root.$data.loginUserName = res.data.loginUserName;
+          this.$root.$data.loginId = res.data.loginId;
+          this.$root.$data.loginEmail = res.data.loginEmail;
+          // let loginAccessLevel = res.data.loginAccessLevel;
+          // let loginUserName = res.data.loginUserName;
+          this.$router.push({ name: "home" });
         })
         .catch(function (error) {
           // handle error
           console.log(error);
         });
-    },
-  },
+    }
+  }
 };
+
 </script>
 
 <style>
+
 </style>
