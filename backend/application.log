@@ -1,0 +1,39 @@
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+                ,
+                ,
+                ,
+                ,
+  ' at line 3
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+                ,
+                ,
+                ,
+                ,
+  ' at line 3
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+                ,
+                ,
+                ,
+                ,
+  ' at line 3
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+                ,
+                ,
+                ,
+                ,
+  ' at line 3
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' , , , , )' at line 2
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' , , , '')' at line 2
+[ERROR] query error: You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near ' , , , '')' at line 2
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Column 'macskaId' in where clause is ambiguous
+[ERROR] query error: Unknown column 'oltasNev' in 'field list'
