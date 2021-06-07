@@ -417,7 +417,7 @@ export default {
       this.modalTitle = "Új macska bevitele";
       this.status = "insert";
 
-      this.row = new Macskak(0, null, null, 0, 0, null, null, null);
+      this.row = new Macskak(0, null, 0, null, null, 0, null, null);
       //űrlap indít
       this.formShow();
 
